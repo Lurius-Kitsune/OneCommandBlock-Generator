@@ -16,7 +16,7 @@ namespace OneCommandBlock_Generator
         {
             this.name = name;
             this.description = description;
-            this.oneCommand.Append("summon falling_block ~ ~5 ~ {{BlockState:{{Name:stone}},Time:1b," +
+            this.oneCommand.Add("summon falling_block ~ ~5 ~ {{BlockState:{{Name:stone}},Time:1b," +
                 $"Passengers:[{{id:\"minecraft:falling_block\",Time:0," +
                 $"Passengers:[{{id:\"minecraft:falling_block\",Time:1b,BlockState:{{Name:redstone_block}}," +
                 $"Passengers:[{{id:\"minecraft:falling_block\",Time:0," +
