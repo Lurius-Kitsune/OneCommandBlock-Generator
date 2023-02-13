@@ -16,11 +16,11 @@ namespace OneCommandBlock_Generator
         {
             this.name = name;
             this.description = description;
-            this.oneCommand.Add($"summon falling_block ~ ~5 ~ {{BlockState:{{Name:stone}},Time:1b," +
-                $"Passengers:[{{id:\"minecraft:falling_block\",Time:0," +
-                $"Passengers:[{{id:\"minecraft:falling_block\",Time:1b,BlockState:{{Name:redstone_block}}," +
-                $"Passengers:[{{id:\"minecraft:falling_block\",Time:0," +
-                $"Passengers:[{{id:\"minecraft:falling_block\",BlockState:{{Name:activator_rail}},Time:1b,Passengers:[");
+            this.oneCommand.Add($"summon falling_block ~ ~5 ~ {{BlockState:{{Name:redstone_block}}," +
+                $"Passengers:[{{id:\"minecraft:armor_stand\",Health:0," +
+                $"Passengers:[{{id:falling_block,BlockState:{{Name:activator_rail}}," +
+                $"Passengers:[{{id:command_block_minecart,Command:'gamerule commandBlockOutput false'}}," +
+                $"{{id:command_block_minecart,Command:'data merge block ~ ~-2 ~ {{auto:0}}'}},");
 
         }
 
@@ -50,11 +50,8 @@ namespace OneCommandBlock_Generator
 
         private void EndGenerator()
         {
-            this.oneCommand.Add("{id:\"minecraft:command_block_minecart\",Command:\"setblock ~1 ~-3 ~ " +
-                "command_block{Command:\\\"fill ~-1 ~3 ~ ~ ~ ~ air\\\"}\"}," +
-                "{id:\"minecraft:command_block_minecart\",Command:\"setblock ~1 ~-2 ~ " +
-                "redstone_block\"},{id:\"minecraft:command_block_minecart\"," +
-                "Command:\"kill @e[type=command_block_minecart,distance=..1]\"}]}]}]}]}]}");
+            this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~ ~1 ~ command_block{{auto:1,Command:\"fill ~ ~ ~ ~ ~-2 ~ air\"}}'}}," +
+                $"{{id:command_block_minecart,Command:'kill @e[type=command_block_minecart,distance=..1]'}}]}}]}}]}}");
         }
     }
 }
