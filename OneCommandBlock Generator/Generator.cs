@@ -16,7 +16,7 @@ namespace OneCommandBlock_Generator
         {
             this.name = name;
             this.description = description;
-            this.oneCommand.Add("summon falling_block ~ ~5 ~ {{BlockState:{{Name:stone}},Time:1b," +
+            this.oneCommand.Add($"summon falling_block ~ ~5 ~ {{BlockState:{{Name:stone}},Time:1b," +
                 $"Passengers:[{{id:\"minecraft:falling_block\",Time:0," +
                 $"Passengers:[{{id:\"minecraft:falling_block\",Time:1b,BlockState:{{Name:redstone_block}}," +
                 $"Passengers:[{{id:\"minecraft:falling_block\",Time:0," +
@@ -37,6 +37,7 @@ namespace OneCommandBlock_Generator
                 {
                     throw new Exception("Veuillez mettre une commande init ou Loop");
                 }
+                EndGenerator();
                 oneCommandString = String.Join(" ", this.oneCommand);
                 return oneCommandString;
             }
@@ -45,6 +46,15 @@ namespace OneCommandBlock_Generator
                 Console.WriteLine(ex.Message);
                 return "Erreur";
             }
+        }
+
+        private void EndGenerator()
+        {
+            this.oneCommand.Add("{id:\"minecraft:command_block_minecart\",Command:\"setblock ~1 ~-3 ~ " +
+                "command_block{Command:\\\"fill ~-1 ~3 ~ ~ ~ ~ air\\\"}\"}," +
+                "{id:\"minecraft:command_block_minecart\",Command:\"setblock ~1 ~-2 ~ " +
+                "redstone_block\"},{id:\"minecraft:command_block_minecart\"," +
+                "Command:\"kill @e[type=command_block_minecart,distance=..1]\"}]}]}]}]}]}");
         }
     }
 }
