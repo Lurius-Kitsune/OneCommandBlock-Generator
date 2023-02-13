@@ -29,9 +29,11 @@ namespace OneCommandBlock_Generator
             try
             {
                 string oneCommandString;
-                InitCommand.InitBuild(initListCommand, ref this.oneCommand);
-
-                if (this.oneCommand.Count == 0)
+                if (initListCommand.Count != null)
+                {
+                    InitCommand.InitBuild(initListCommand, ref this.oneCommand);
+                }
+                if (this.oneCommand.Count == 1)
                 {
                     throw new Exception("Veuillez mettre une commande init ou Loop");
                 }
