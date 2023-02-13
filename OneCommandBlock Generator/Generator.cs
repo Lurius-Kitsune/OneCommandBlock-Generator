@@ -10,13 +10,13 @@ namespace OneCommandBlock_Generator
     {
         private string name;
         private string description;
-        private List<string> one_command = new List<string>();
+        private List<string> oneCommand = new List<string>();
 
         public Generator(string name, string description)
         {
             this.name = name;
             this.description = description;
-            this.one_command.Append("summon falling_block ~ ~5 ~ {{BlockState:{{Name:stone}},Time:1b," +
+            this.oneCommand.Append("summon falling_block ~ ~5 ~ {{BlockState:{{Name:stone}},Time:1b," +
                 $"Passengers:[{{id:\"minecraft:falling_block\",Time:0," +
                 $"Passengers:[{{id:\"minecraft:falling_block\",Time:1b,BlockState:{{Name:redstone_block}}," +
                 $"Passengers:[{{id:\"minecraft:falling_block\",Time:0," +
@@ -24,14 +24,25 @@ namespace OneCommandBlock_Generator
 
         }
 
-        public string Build(Array setupListCommand, Array loopListCommand)
+        public string OneCommandBuild(List<string> initListCommand, List<string> loopListCommand)
         {
+            try
+            {
+                string oneCommandString;
+                InitCommand.InitBuild(initListCommand, ref this.oneCommand);
 
-        }
-
-        private List<string> SetSetupCommand(Array setupListCommand)
-        {
-
+                if (this.oneCommand.Count == 0)
+                {
+                    throw new Exception("Veuillez mettre une commande init ou Loop");
+                }
+                oneCommandString = this.oneCommand.ToString();
+                return oneCommandString;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return "Erreur";
+            }
         }
     }
 }
