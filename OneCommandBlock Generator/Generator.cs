@@ -24,7 +24,7 @@ namespace OneCommandBlock_Generator
 
         }
 
-        public string OneCommandBuild(List<string> initListCommand, List<string> loopListCommand)
+        public string OneCommandBuild(List<string>? initListCommand = null, List<string>? loopListCommand = null)
         {
             try
             {
