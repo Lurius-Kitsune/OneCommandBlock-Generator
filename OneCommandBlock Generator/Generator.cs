@@ -35,15 +35,11 @@ namespace OneCommandBlock_Generator
             {
                 throw new Exception("Veuillez mettre une commande init ou Loop");
             }
-            EndGenerator();
+            this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~ ~1 ~ command_block{{auto:1,Command:\"fill ~ ~ ~ ~ ~-2 ~ air\"}}'}}," +
+                $"{{id:command_block_minecart,Command:'kill @e[type=command_block_minecart,distance=..1]'}}]}}]}}]}}");
             oneCommandString = String.Join(" ", this.oneCommand);
             return oneCommandString;
         }
 
-        private void EndGenerator()
-        {
-            this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~ ~1 ~ command_block{{auto:1,Command:\"fill ~ ~ ~ ~ ~-2 ~ air\"}}'}}," +
-                $"{{id:command_block_minecart,Command:'kill @e[type=command_block_minecart,distance=..1]'}}]}}]}}]}}");
-        }
     }
 }
