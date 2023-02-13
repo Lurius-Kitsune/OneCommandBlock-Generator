@@ -26,26 +26,18 @@ namespace OneCommandBlock_Generator
 
         public string OneCommandBuild(List<string>? initListCommand = null, List<string>? loopListCommand = null)
         {
-            try
+            string oneCommandString;
+            if (initListCommand != null)
             {
-                string oneCommandString;
-                if (initListCommand.Count != null)
-                {
-                    InitCommand.InitBuild(initListCommand, ref this.oneCommand);
-                }
-                if (this.oneCommand.Count == 1)
-                {
-                    throw new Exception("Veuillez mettre une commande init ou Loop");
-                }
-                EndGenerator();
-                oneCommandString = String.Join(" ", this.oneCommand);
-                return oneCommandString;
+                InitCommand.InitBuild(initListCommand, ref this.oneCommand);
             }
-            catch (Exception ex)
+            if (this.oneCommand.Count == 1)
             {
-                Console.WriteLine(ex.Message);
-                return "Erreur";
+                throw new Exception("Veuillez mettre une commande init ou Loop");
             }
+            EndGenerator();
+            oneCommandString = String.Join(" ", this.oneCommand);
+            return oneCommandString;
         }
 
         private void EndGenerator()

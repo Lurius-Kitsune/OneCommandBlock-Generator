@@ -17,11 +17,30 @@ namespace Outils
 
         public static void TesteBuildInitOnly()
         {
-            Generator monOneCommand = new Generator("Mods de Lurius", "Voici un No mod");
+            //TESTE SI INIT ET MIT
+            try
+            {
+                Console.WriteLine("[#1 TesteBuildInit]");
+                Generator monOneCommand = new Generator("Mods de Lurius", "Voici un No mod");
 
-            List<string> initCommand = new List<string>();
-            initCommand.Add("/say hello");
-            Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild(initCommand)}");
+                List<string> initCommand = new List<string>();
+                initCommand.Add("/say hello");
+                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild(initCommand)}");
+                Console.WriteLine("[# 1 SUCCESS]");
+            }
+            catch (Exception ex) { Console.WriteLine("[#1 ERROR]"); }
+
+            // TEST WITHOUT INIT
+            try
+            {
+                Console.WriteLine("[#2 TesteBuildInit]");
+                Generator monOneCommand = new Generator("Mods de Lurius", "Voici un No mod");
+
+                List<string> initCommand = new List<string>();
+                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild()}");
+                Console.WriteLine("[#2 ERROR]");
+            }
+            catch (Exception ex) { Console.WriteLine("[#2 SUCCESS]" + ex.Message); }
         }
     }
 }
