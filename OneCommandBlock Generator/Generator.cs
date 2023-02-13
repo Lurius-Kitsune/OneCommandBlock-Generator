@@ -10,6 +10,8 @@ namespace OneCommandBlock_Generator
     {
         private string name;
         private string description;
+        private int longueur;
+        private int largeur;
         private List<string> oneCommand = new List<string>();
 
         public Generator(string name, string description)

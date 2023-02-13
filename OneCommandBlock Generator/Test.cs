@@ -24,7 +24,7 @@ namespace Outils
                 Generator monOneCommand = new Generator("Mods de Lurius", "Voici un No mod");
 
                 List<string> initCommand = new List<string>();
-                initCommand.Add("/say hello");
+                initCommand.Add("/setblock ~ ~5 ~ minecraft:diamond_block");
                 Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild(initCommand)}");
                 Console.WriteLine("[# 1 SUCCESS]");
             }
