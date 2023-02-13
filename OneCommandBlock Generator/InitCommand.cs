@@ -15,7 +15,7 @@ namespace OneCommandBlock_Generator
                 if (initListCommand.Count == 0) { throw new Exception("Aucune commande d'initiation mit"); }
                 for (int i = 0; i != initListCommand.Count; i++)
                 {
-                    oneCommand.Add($"{{ id:\"minecraft:command_block_minecart\",Command:\"{initListCommand[i]}\"}}");
+                    oneCommand.Add($"{{ id:\"minecraft:command_block_minecart\",Command:\"{initListCommand[i]}\"}},");
                 }
             }
             catch (Exception ex)
