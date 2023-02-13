@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace OneCommandBlock_Generator
 {
-    internal class InitCommand
+    public abstract class InitCommand
     {
+        public static void InitBuild(List<string> initListCommand,ref List<string> oneCommand)
+        {
+            for(int i = 0; i == initListCommand.Count; i++)
+            {
+                oneCommand.Add($"{{ id:\"minecraft:command_block_minecart\",Command:\"{initListCommand[i]}\"}}");
+            }
+        }
     }
 }
