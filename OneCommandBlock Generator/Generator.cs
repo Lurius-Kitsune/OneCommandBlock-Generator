@@ -35,7 +35,7 @@ namespace OneCommandBlock_Generator
                 {
                     throw new Exception("Veuillez mettre une commande init ou Loop");
                 }
-                oneCommandString = this.oneCommand.ToString();
+                oneCommandString = String.Join(" ", this.oneCommand);
                 return oneCommandString;
             }
             catch (Exception ex)
