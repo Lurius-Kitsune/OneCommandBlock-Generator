@@ -90,13 +90,20 @@ namespace OneCommandBlock_Generator
 
         private void StructureBuild()
         {
-            for (int h = 0; h != this.hauteur; h++)
+            for (int h = 0; h < this.hauteur; h++)
             {
-                for (int i = 0; i != this.largeur; i++)
+                for (int i = 0; i < this.largeur; i++)
                 {
-                    for (int j = 0; j != this.longueur; j++)
+                    for (int j = 0; j < this.longueur; j++)
                     {
-                        this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{j+1} ~{h} ~{i} minecraft:stone'}},");
+                        if (h != 0 && h != this.hauteur-1 && (i== 0 || i== this.largeur))
+                        {
+                            this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{j + 1} ~{h - 1} ~{i} minecraft:grass_block'}},");
+                        }
+                        else if (h == 0 || h == this.hauteur - 1)
+                        {
+                            this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{j + 1} ~{h - 1} ~{i} minecraft:stone'}},");
+                        }
                     }
                 }
             }
