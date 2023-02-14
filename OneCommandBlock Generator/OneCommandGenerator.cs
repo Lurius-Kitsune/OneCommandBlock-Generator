@@ -96,7 +96,9 @@ namespace OneCommandBlock_Generator
                 {
                     for (int j = 0; j < this.longueur; j++)
                     {
-                        if (h != 0 && h != this.hauteur-1 && (i== 0 || i== this.largeur))
+                        if ((h != 0 && h != this.hauteur-1) && 
+                           (i== 0 || i== this.largeur) || 
+                           (i != 0 || i != this.largeur) && (j == 0 || j == this.longueur))
                         {
                             this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{j + 1} ~{h - 1} ~{i} minecraft:grass_block'}},");
                         }
