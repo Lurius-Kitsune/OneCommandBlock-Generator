@@ -82,7 +82,7 @@ namespace OneCommandBlock_Generator
                 int cptLongueur = 1;
                 int cptLargeur = 1;
                 int cptHauteur = 0;
-                this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} command_block{{auto:1,Command:\"{loopListCommand[0]}\"}}'}},");
+                this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} repeating_command_block[facing=east]{{auto:1,Command:\"{loopListCommand[0]}\"}}'}},");
                 for (int i = 1; i != loopListCommand.Count; i++)
                 {
                     if (cptLongueur == this.longueur - 2)
