@@ -11,7 +11,8 @@ namespace Outils
     {
         static void Main(string[] args)
         {
-            TesteBuildInitOnly();
+            //TesteBuildInitOnly();
+            TesteBuildLoopOnly();
             Console.ReadKey();
         }
 
@@ -42,5 +43,34 @@ namespace Outils
             }
             catch (Exception ex) { Console.WriteLine("[#2 SUCCESS]" + ex.Message); }
         }
+
+        public static void TesteBuildLoopOnly()
+        {
+            //TESTE SI INIT ET MIT
+            try
+            {
+                Console.WriteLine("[#3 TesteBuildLoop]");
+                OneCommandGenerator monOneCommand = new OneCommandGenerator("Mods de Lurius", "Voici un No mod", 3, 3);
+
+                List<string> loopCommand = new List<string>();
+                loopCommand.Add("say hello");
+                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild(null ,loopCommand)}");
+                Console.WriteLine("[# 3 SUCCESS]");
+            }
+            catch (Exception ex) { Console.WriteLine("[#1 ERROR]" + ex.Message); }
+
+            // TEST WITHOUT INIT
+            try
+            {
+                Console.WriteLine("[#2 TesteBuildInit]");
+                OneCommandGenerator monOneCommand = new OneCommandGenerator("Mods de Lurius", "Voici un No mod", 3, 3);
+
+                List<string> loopCommand = new List<string>();
+                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild()}");
+                Console.WriteLine("[#4 ERROR]");
+            }
+            catch (Exception ex) { Console.WriteLine("[#4 SUCCESS]" + ex.Message); }
+        }
+
     }
 }
