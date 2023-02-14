@@ -44,6 +44,10 @@ namespace OneCommandBlock_Generator
             {
                 InitBuild(initListCommand);
             }
+            if (loopListCommand != null)
+            {
+                LoopBuild(loopListCommand);
+            }
             if (this.oneCommand.Count == 1)
             {
                 throw new Exception("Veuillez mettre une commande init ou Loop");
@@ -73,22 +77,29 @@ namespace OneCommandBlock_Generator
 
         private void LoopBuild(List<string> loopListCommand)
         {
-            int cptLongueur = 1;
-            int cptLargeur = 1;
-            this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur+2} ~1 ~{cptLargeur+1} command_block{{auto:1,Command:\"{loopListCommand[0]}\"}}'}},");
-            for (int i = 1; i != loopListCommand.Count; i++)
+            try
             {
-                if (cptLongueur == this.longueur - 2)
+                int cptLongueur = 1;
+                int cptLargeur = 1;
+                this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 2} ~1 ~{cptLargeur + 1} command_block{{auto:1,Command:\"{loopListCommand[0]}\"}}'}},");
+                for (int i = 1; i != loopListCommand.Count; i++)
                 {
-                    cptLargeur++;
-                    cptLongueur = 1;
-                    if (cptLargeur == this.largeur - 2)
+                    if (cptLongueur == this.longueur - 2)
                     {
-                        this.hauteur++;
-                        cptLargeur = 1;
+                        cptLargeur++;
+                        cptLongueur = 1;
+                        if (cptLargeur == this.largeur - 2)
+                        {
+                            this.hauteur++;
+                            cptLargeur = 1;
+                        }
                     }
+                    this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 2} ~1 ~{cptLargeur + 1} command_block{{auto:1,Command:\"{loopListCommand[i]}\"}}'}},");
                 }
-                this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 2} ~1 ~{cptLargeur + 1} command_block{{auto:1,Command:\"{loopListCommand[i]}\"}}'}},");    
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 
