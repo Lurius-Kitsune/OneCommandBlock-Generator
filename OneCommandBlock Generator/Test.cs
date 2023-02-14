@@ -21,7 +21,7 @@ namespace Outils
             try
             {
                 Console.WriteLine("[#1 TesteBuildInit]");
-                Generator monOneCommand = new Generator("Mods de Lurius", "Voici un No mod");
+                OneCommandGenerator monOneCommand = new Generator("Mods de Lurius", "Voici un No mod");
 
                 List<string> initCommand = new List<string>();
                 initCommand.Add("/setblock ~ ~5 ~ minecraft:diamond_block");
@@ -34,7 +34,7 @@ namespace Outils
             try
             {
                 Console.WriteLine("[#2 TesteBuildInit]");
-                Generator monOneCommand = new Generator("Mods de Lurius", "Voici un No mod");
+                OneCommandGenerator monOneCommand = new Generator("Mods de Lurius", "Voici un No mod");
 
                 List<string> initCommand = new List<string>();
                 Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild()}");

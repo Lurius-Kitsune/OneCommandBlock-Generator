@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OneCommandBlock_Generator
 {
-    internal class Generator
+    internal class OneCommandGenerator
     {
         private string name;
         private string description;
@@ -15,23 +15,18 @@ namespace OneCommandBlock_Generator
         private List<string> oneCommand = new List<string>();
 
         /// <summary>
-        /// Surcharge du constructeur
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="description"></param>
-        public Generator(string name, string description) : this(name, description, 10, 10) { }
-
-        /// <summary>
         /// Construct One Command
         /// </summary>
         /// <param name="name"></param>
         /// <param name="description"></param>
         /// <param name="longueur"></param>
         /// <param name="largeur"></param>
-        public Generator(string name, string description, int longueur, int largeur)
+        public OneCommandGenerator(string name, string description, int longueur)
         {
             this.name = name;
             this.description = description;
+            this.longueur = longueur;
+            this.largeur = 3;
             this.oneCommand.Add($"summon falling_block ~ ~5 ~ {{BlockState:{{Name:redstone_block}}," +
                 $"Passengers:[{{id:\"minecraft:armor_stand\",Health:0," +
                 $"Passengers:[{{id:falling_block,BlockState:{{Name:activator_rail}}," +
@@ -45,7 +40,7 @@ namespace OneCommandBlock_Generator
             string oneCommandString;
             if (initListCommand != null)
             {
-                InitCommand.InitBuild(initListCommand, ref this.oneCommand);
+                InitBuild(initListCommand);
             }
             if (this.oneCommand.Count == 1)
             {
@@ -57,13 +52,29 @@ namespace OneCommandBlock_Generator
             return oneCommandString;
         }
 
+        public void InitBuild(List<string> initListCommand)
+        {
+            try
+            {
+                if (initListCommand.Count == 0) { throw new Exception("Aucune commande d'initiation mit"); }
+                for (int i = 0; i != initListCommand.Count; i++)
+                {
+                    this.oneCommand.Add($"{{ id:\"minecraft:command_block_minecart\",Command:\"{initListCommand[i]}\"}},");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
         private void StructureBuild()
         {
             for(int i = 0; i != this.largeur; i++)
             {
                 for(int j = 0; i!= this.longueur; j++)
                 {
-                    this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~ ~{i+i} ~ minecraft:stone'}},");
+                    this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~ ~ ~ minecraft:stone'}},");
                 }
             }
         }
