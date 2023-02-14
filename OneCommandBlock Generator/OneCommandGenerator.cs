@@ -122,7 +122,7 @@ namespace OneCommandBlock_Generator
                     else
                     {
                         this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} " +
-                                            $"chain_command_block[facing=east, condition={command.Value}]{{auto:1,Command:\"{command.Key}\"}}'}},");
+                                            $"chain_command_block[facing=east, conditional={command.Value}]{{auto:1,Command:\"{command.Key}\"}}'}},");
                     }
                 }
             }
