@@ -28,7 +28,7 @@ namespace OneCommandBlock_Generator
             this.description = description;
             this.longueur = longueur;
             this.largeur = 3;
-            this.hauteur = 3
+            this.hauteur = 3;
             this.oneCommand.Add($"summon falling_block ~ ~5 ~ {{BlockState:{{Name:redstone_block}}," +
                 $"Passengers:[{{id:\"minecraft:armor_stand\",Health:0," +
                 $"Passengers:[{{id:falling_block,BlockState:{{Name:activator_rail}}," +
@@ -48,6 +48,7 @@ namespace OneCommandBlock_Generator
             {
                 throw new Exception("Veuillez mettre une commande init ou Loop");
             }
+            StructureBuild();
             this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~ ~1 ~ command_block{{auto:1,Command:\"fill ~ ~ ~ ~ ~-2 ~ air\"}}'}}," +
                 $"{{id:command_block_minecart,Command:'kill @e[type=command_block_minecart,distance=..1]'}}]}}]}}]}}");
             oneCommandString = String.Join(" ", this.oneCommand);
@@ -89,11 +90,14 @@ namespace OneCommandBlock_Generator
 
         private void StructureBuild()
         {
-            for(int i = 0; i != this.largeur; i++)
+            for (int h = 0; h != this.hauteur; h++)
             {
-                for(int j = 0; i!= this.longueur; j++)
+                for (int i = 0; i != this.largeur; i++)
                 {
-                    this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~ ~ ~ minecraft:stone'}},");
+                    for (int j = 0; j != this.longueur; j++)
+                    {
+                        this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{j+1} ~{h} ~{i} minecraft:stone'}},");
+                    }
                 }
             }
         }
