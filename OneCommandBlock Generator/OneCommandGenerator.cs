@@ -15,7 +15,7 @@ namespace OneCommandBlock_Generator
         private List<string> oneCommand = new List<string>();
 
         /// <summary>
-        /// Construct One Command
+        /// Construct One Command Compiler
         /// </summary>
         /// <param name="name"></param>
         /// <param name="description"></param>
