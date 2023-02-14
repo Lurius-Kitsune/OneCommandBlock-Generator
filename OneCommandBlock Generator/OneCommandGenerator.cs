@@ -22,12 +22,12 @@ namespace OneCommandBlock_Generator
         /// <param name="description"></param>
         /// <param name="longueur"></param>
         /// <param name="largeur"></param>
-        public OneCommandGenerator(string name, string description, int longueur)
+        public OneCommandGenerator(string name, string description, int longueur, int largeur)
         {
             this.name = name;
             this.description = description;
             this.longueur = longueur;
-            this.largeur = 3;
+            this.largeur = largeur;
             this.hauteur = 3;
             this.oneCommand.Add($"summon falling_block ~ ~5 ~ {{BlockState:{{Name:redstone_block}}," +
                 $"Passengers:[{{id:\"minecraft:armor_stand\",Health:0," +
@@ -96,11 +96,11 @@ namespace OneCommandBlock_Generator
                 {
                     for (int j = 0; j < this.longueur; j++)
                     {
-                        if ((h != 0 && h != this.hauteur-1) && 
-                           (i== 0 || i== this.largeur) || 
-                           (i != 0 || i != this.largeur) && (j == 0 || j == this.longueur))
+                        if (h != 0 && h != this.hauteur-1 && 
+                           (i== 0 || i== this.largeur-1 || 
+                           ((i != 0 || i != this.largeur-1) && (j == 0 || j == this.longueur-1))))
                         {
-                            this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{j + 1} ~{h - 1} ~{i} minecraft:grass_block'}},");
+                            this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{j + 1} ~{h - 1} ~{i} minecraft:glass'}},");
                         }
                         else if (h == 0 || h == this.hauteur - 1)
                         {
