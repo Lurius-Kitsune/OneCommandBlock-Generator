@@ -75,16 +75,20 @@ namespace OneCommandBlock_Generator
         {
             int cptLongueur = 1;
             int cptLargeur = 1;
-            cptLongueur++;
-            if (cptLongueur == this.longueur)
+            this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur+2} ~1 ~{cptLargeur+1} command_block{{auto:1,Command:\"{loopListCommand[0]}\"}}'}},");
+            for (int i = 1; i != loopListCommand.Count; i++)
             {
-                cptLargeur++;
-                cptLongueur = 1;
-                if (cptLargeur == this.largeur)
+                if (cptLongueur == this.longueur - 2)
                 {
-                    this.hauteur++;
-                    cptLargeur = 1;
+                    cptLargeur++;
+                    cptLongueur = 1;
+                    if (cptLargeur == this.largeur - 2)
+                    {
+                        this.hauteur++;
+                        cptLargeur = 1;
+                    }
                 }
+                this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 2} ~1 ~{cptLargeur + 1} command_block{{auto:1,Command:\"{loopListCommand[i]}\"}}'}},");    
             }
         }
 
