@@ -12,6 +12,7 @@ namespace OneCommandBlock_Generator
         private string description;
         private int longueur;
         private int largeur;
+        private int hauteur;
         private List<string> oneCommand = new List<string>();
 
         /// <summary>
@@ -27,6 +28,7 @@ namespace OneCommandBlock_Generator
             this.description = description;
             this.longueur = longueur;
             this.largeur = 3;
+            this.hauteur = 3
             this.oneCommand.Add($"summon falling_block ~ ~5 ~ {{BlockState:{{Name:redstone_block}}," +
                 $"Passengers:[{{id:\"minecraft:armor_stand\",Health:0," +
                 $"Passengers:[{{id:falling_block,BlockState:{{Name:activator_rail}}," +
@@ -65,6 +67,23 @@ namespace OneCommandBlock_Generator
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void LoopBuild(List<string> loopListCommand)
+        {
+            int cptLongueur = 1;
+            int cptLargeur = 1;
+            cptLongueur++;
+            if (cptLongueur == this.longueur)
+            {
+                cptLargeur++;
+                cptLongueur = 1;
+                if (cptLargeur == this.largeur)
+                {
+                    this.hauteur++;
+                    cptLargeur = 1;
+                }
             }
         }
 
