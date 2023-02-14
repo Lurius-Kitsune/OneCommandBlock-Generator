@@ -96,9 +96,8 @@ namespace OneCommandBlock_Generator
         {
             try
             {
-                int cptLongueur = 1;
-                int cptLargeur = 1;
-                int cptHauteur = 0;
+                int cptLongueur = 1, cptHauteur = 0, cptLargeur = 1;
+                string faces = "east"
                 bool firstLoop = false;
                 foreach (KeyValuePair<string, bool> command in loopListCommand)
                 {
