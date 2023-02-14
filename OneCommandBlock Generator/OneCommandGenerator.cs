@@ -52,7 +52,7 @@ namespace OneCommandBlock_Generator
             {
                 throw new Exception("Veuillez mettre une commande init ou Loop");
             }
-            StructureBuild();
+            //StructureBuild();
             this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~ ~1 ~ command_block{{auto:1,Command:\"fill ~ ~ ~ ~ ~-2 ~ air\"}}'}}," +
                 $"{{id:command_block_minecart,Command:'kill @e[type=command_block_minecart,distance=..1]'}}]}}]}}]}}");
             oneCommandString = String.Join(" ", this.oneCommand);
@@ -81,7 +81,8 @@ namespace OneCommandBlock_Generator
             {
                 int cptLongueur = 1;
                 int cptLargeur = 1;
-                this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 2} ~1 ~{cptLargeur + 1} command_block{{auto:1,Command:\"{loopListCommand[0]}\"}}'}},");
+                int cptHauteur = 0;
+                this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} command_block{{auto:1,Command:\"{loopListCommand[0]}\"}}'}},");
                 for (int i = 1; i != loopListCommand.Count; i++)
                 {
                     if (cptLongueur == this.longueur - 2)
@@ -91,10 +92,11 @@ namespace OneCommandBlock_Generator
                         if (cptLargeur == this.largeur - 2)
                         {
                             this.hauteur++;
+                            cptHauteur++;
                             cptLargeur = 1;
                         }
                     }
-                    this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 2} ~1 ~{cptLargeur + 1} command_block{{auto:1,Command:\"{loopListCommand[i]}\"}}'}},");
+                    this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} command_block{{auto:1,Command:\"{loopListCommand[i]}\"}}'}},");
                 }
             }
             catch (Exception ex)
