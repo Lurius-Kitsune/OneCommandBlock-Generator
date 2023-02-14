@@ -14,7 +14,21 @@ namespace OneCommandBlock_Generator
         private int largeur;
         private List<string> oneCommand = new List<string>();
 
-        public Generator(string name, string description)
+        /// <summary>
+        /// Surcharge du constructeur
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
+        public Generator(string name, string description) : this(name, description, 10, 10) { }
+
+        /// <summary>
+        /// Construct One Command
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
+        /// <param name="longueur"></param>
+        /// <param name="largeur"></param>
+        public Generator(string name, string description, int longueur, int largeur)
         {
             this.name = name;
             this.description = description;
@@ -43,5 +57,15 @@ namespace OneCommandBlock_Generator
             return oneCommandString;
         }
 
+        private void StructureBuild()
+        {
+            for(int i = 0; i != this.largeur; i++)
+            {
+                for(int j = 0; i!= this.longueur; j++)
+                {
+                    this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~ ~{i+i} ~ minecraft:stone'}},");
+                }
+            }
+        }
     }
 }
