@@ -37,6 +37,13 @@ namespace OneCommandBlock_Generator
 
         }
 
+        /// <summary>
+        /// Generate the OneCommand string
+        /// </summary>
+        /// <param name="initListCommand">List of command when first start</param>
+        /// <param name="loopListCommand">List of action that are loop</param>
+        /// <returns>OneCommand String</returns>
+        /// <exception cref="Exception"></exception>
         public string OneCommandBuild(List<string>? initListCommand = null, Dictionary<string, bool>? loopListCommand = null)
         {
             string oneCommandString;
@@ -59,6 +66,11 @@ namespace OneCommandBlock_Generator
             return oneCommandString;
         }
 
+        /// <summary>
+        /// With the list of command, add this to list of One Command
+        /// This wiill make the startup of you're no-mod
+        /// </summary>
+        /// <param name="initListCommand">List of command when first start</param>
         public void InitBuild(List<string> initListCommand)
         {
             try
@@ -75,6 +87,11 @@ namespace OneCommandBlock_Generator
             }
         }
 
+        /// <summary>
+        /// With the list of command, add this to list of One Command
+        /// This wiill make the Loop of you're no-mod
+        /// </summary>
+        /// <param name="loopListCommand">List of action that are loop</param>
         private void LoopBuild(Dictionary<string, bool> loopListCommand)
         {
             try
@@ -115,12 +132,19 @@ namespace OneCommandBlock_Generator
             }
         }
 
+        /// <summary>
+        /// Generate the string added to the List, 
+        /// It will make the structur surronding our command block.
+        /// </summary>
         private void StructureBuild()
         {
+            // High
             for (int h = 0; h < this.hauteur; h++)
             {
+                //
                 for (int i = 0; i < this.largeur; i++)
                 {
+                    //Lengh
                     for (int j = 0; j < this.longueur; j++)
                     {
                         if (h != 0 && h != this.hauteur - 1 &&

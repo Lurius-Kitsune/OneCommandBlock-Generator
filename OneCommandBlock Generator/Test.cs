@@ -16,6 +16,9 @@ namespace Outils
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Testing if the no-mod is build without the need of a loop command
+        /// </summary>
         public static void TesteBuildInitOnly()
         {
             //TESTE SI INIT ET MIT
@@ -44,6 +47,9 @@ namespace Outils
             catch (Exception ex) { Console.WriteLine("[#2 SUCCESS]" + ex.Message); }
         }
 
+        /// <summary>
+        /// Testing if the no-mod is build without the need of a init command
+        /// </summary>
         public static void TesteBuildLoopOnly()
         {
             //TESTE SI INIT ET MIT
