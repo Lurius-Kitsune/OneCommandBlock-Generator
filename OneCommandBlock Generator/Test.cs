@@ -52,9 +52,9 @@ namespace Outils
                 Console.WriteLine("[#3 TesteBuildLoop]");
                 OneCommandGenerator monOneCommand = new OneCommandGenerator("Mods de Lurius", "Voici un No mod", 3, 3);
 
-                List<string> loopCommand = new List<string>();
-                loopCommand.Add("say hello");
-                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild(null ,loopCommand)}");
+                Dictionary<string,bool> loopCommand = new Dictionary<string, bool>();
+                loopCommand.Add("say hello", false);
+                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild(null, loopCommand)}");
                 Console.WriteLine("[# 3 SUCCESS]");
             }
             catch (Exception ex) { Console.WriteLine("[#1 ERROR]" + ex.Message); }
@@ -62,10 +62,10 @@ namespace Outils
             // TEST WITHOUT INIT
             try
             {
-                Console.WriteLine("[#2 TesteBuildInit]");
+                Console.WriteLine("[#4 TesteBuildLoop]");
                 OneCommandGenerator monOneCommand = new OneCommandGenerator("Mods de Lurius", "Voici un No mod", 3, 3);
 
-                List<string> loopCommand = new List<string>();
+                Dictionary<string, bool> loopCommand = new Dictionary<string, bool>();
                 Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild()}");
                 Console.WriteLine("[#4 ERROR]");
             }

@@ -37,7 +37,7 @@ namespace OneCommandBlock_Generator
 
         }
 
-        public string OneCommandBuild(List<string>? initListCommand = null, List<string>? loopListCommand = null)
+        public string OneCommandBuild(List<string>? initListCommand = null, Dictionary<string, bool>? loopListCommand = null)
         {
             string oneCommandString;
             if (initListCommand != null)
@@ -75,15 +75,15 @@ namespace OneCommandBlock_Generator
             }
         }
 
-        private void LoopBuild(List<string> loopListCommand)
+        private void LoopBuild(Dictionary<string, bool> loopListCommand)
         {
             try
             {
                 int cptLongueur = 1;
                 int cptLargeur = 1;
                 int cptHauteur = 0;
-                this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} repeating_command_block[facing=east]{{auto:1,Command:\"{loopListCommand[0]}\"}}'}},");
-                for (int i = 1; i != loopListCommand.Count; i++)
+                bool firstLoop = false;
+                foreach (KeyValuePair<string, bool> command in loopListCommand)
                 {
                     if (cptLongueur == this.longueur - 2)
                     {
@@ -96,7 +96,17 @@ namespace OneCommandBlock_Generator
                             cptLargeur = 1;
                         }
                     }
-                    this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} command_block{{auto:1,Command:\"{loopListCommand[i]}\"}}'}},");
+                    if (!firstLoop)
+                    {
+                        this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} " +
+                                            $"repeating_command_block[facing=east]{{auto:1,Command:\"{command.Key}\"}}'}},");
+                        firstLoop = true;
+                    }
+                    else
+                    {
+                        this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} " +
+                                            $"chain_command_block[facing=east, condition={command.Value}]{{auto:1,Command:\"{command.Key}\"}}'}},");
+                    }
                 }
             }
             catch (Exception ex)
@@ -113,9 +123,9 @@ namespace OneCommandBlock_Generator
                 {
                     for (int j = 0; j < this.longueur; j++)
                     {
-                        if (h != 0 && h != this.hauteur-1 && 
-                           (i== 0 || i== this.largeur-1 || 
-                           ((i != 0 || i != this.largeur-1) && (j == 0 || j == this.longueur-1))))
+                        if (h != 0 && h != this.hauteur - 1 &&
+                           (i == 0 || i == this.largeur - 1 ||
+                           ((i != 0 || i != this.largeur - 1) && (j == 0 || j == this.longueur - 1))))
                         {
                             this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{j + 1} ~{h - 1} ~{i} minecraft:glass'}},");
                         }
