@@ -101,11 +101,12 @@ namespace OneCommandBlock_Generator
                 bool firstLoop = false;
                 foreach (KeyValuePair<string, bool> command in loopListCommand)
                 {
-                    if (cptLongueur == this.longueur - 2)
+                    if (cptLongueur == this.longueur - 1)
                     {
                         cptLargeur++;
                         cptLongueur = 1;
-                        if (cptLargeur == this.largeur - 2)
+                        faces = "north";
+                        if (cptLargeur == this.largeur - 1)
                         {
                             this.hauteur++;
                             cptHauteur++;
