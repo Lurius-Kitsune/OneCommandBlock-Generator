@@ -101,13 +101,15 @@ namespace OneCommandBlock_Generator
                 bool firstLoop = false, invert = false;
                 foreach (KeyValuePair<string, bool> command in loopListCommand)
                 {
-                    if ((cptLongueur == this.longueur - 1 && !invert) || 
+                    if ((cptLongueur == this.longueur - 2 && !invert) ||
+                        (cptLongueur == 2 && invert)) { faces = "south"; }
+                    else if ((cptLongueur == this.longueur - 1 && !invert) || 
                         (cptLongueur == 1 && invert))
                     {
                         cptLargeur++;
                         switch(invert){
                             default:
-                                cptLongueur = this.longueur - 1;
+                                cptLongueur = this.longueur - 2;
                                 invert = true;
                             break;
 

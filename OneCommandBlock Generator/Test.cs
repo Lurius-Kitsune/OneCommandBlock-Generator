@@ -61,7 +61,10 @@ namespace Outils
                 Dictionary<string,bool> loopCommand = new Dictionary<string, bool>();
                 loopCommand.Add("say hello", false);
                 loopCommand.Add("say hello 2", false);
-                loopCommand.Add("say hello Conditionnal", true);
+                loopCommand.Add("say hello Conditionnal1", true);
+                loopCommand.Add("say hello Conditionnal2", true);
+                loopCommand.Add("say hello Conditionnal3", true);
+                loopCommand.Add("say hello Conditionnal4", true);
                 Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild(null, loopCommand)}");
                 Console.WriteLine("[# 3 SUCCESS]");
             }
