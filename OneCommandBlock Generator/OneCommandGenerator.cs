@@ -98,14 +98,25 @@ namespace OneCommandBlock_Generator
             {
                 int cptLongueur = 1, cptHauteur = 0, cptLargeur = 1;
                 string faces = "east";
-                bool firstLoop = false;
+                bool firstLoop = false, invert = false;
                 foreach (KeyValuePair<string, bool> command in loopListCommand)
                 {
-                    if (cptLongueur == this.longueur - 1)
+                    if ((cptLongueur == this.longueur - 1 && invert) || 
+                        (cptLongueur == 1 && !invert))
                     {
                         cptLargeur++;
+                        switch(invert){
+                            default:
+                                cptLongueur = this.longueur - 1;
+                                invert = true;
+                            break;
+
+                            case true:
+                                cptLargeur = 1;
+                                invert = false;
+                                break;
+                        }
                         cptLongueur = 1;
-                        faces = "north";
                         if (cptLargeur == this.largeur - 1)
                         {
                             this.hauteur++;
@@ -128,7 +139,7 @@ namespace OneCommandBlock_Generator
                                             $"chain_command_block[facing={faces}, conditional={command.Value.ToString().ToLower()}]{{auto:1,Command:\"{command.Key}\"}}'}},");
                                 break;
 
-                            case "north":
+                            case "south":
                                 this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} " +
                                             $"chain_command_block[facing={faces}, conditional={command.Value.ToString().ToLower()}]{{auto:1,Command:\"{command.Key}\"}}'}},");
                                 if (cptLargeur % 2 == 0)
