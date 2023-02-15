@@ -101,8 +101,8 @@ namespace OneCommandBlock_Generator
                 bool firstLoop = false, invert = false;
                 foreach (KeyValuePair<string, bool> command in loopListCommand)
                 {
-                    if ((cptLongueur == this.longueur - 1 && invert) || 
-                        (cptLongueur == 1 && !invert))
+                    if ((cptLongueur == this.longueur - 1 && !invert) || 
+                        (cptLongueur == 1 && invert))
                     {
                         cptLargeur++;
                         switch(invert){
@@ -112,11 +112,10 @@ namespace OneCommandBlock_Generator
                             break;
 
                             case true:
-                                cptLargeur = 1;
+                                cptLongueur = 1;
                                 invert = false;
                                 break;
                         }
-                        cptLongueur = 1;
                         if (cptLargeur == this.largeur - 1)
                         {
                             this.hauteur++;
@@ -153,7 +152,8 @@ namespace OneCommandBlock_Generator
                                 break;
                         }
                     }
-                    cptLongueur++;
+                    if (!invert) { cptLongueur++; }
+                    else { cptLongueur--; }
                 }
             }
             catch (Exception ex)

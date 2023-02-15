@@ -56,7 +56,7 @@ namespace Outils
             try
             {
                 Console.WriteLine("[#3 TesteBuildLoop]");
-                OneCommandGenerator monOneCommand = new OneCommandGenerator("Mods de Lurius", "Voici un No mod", 4, 3);
+                OneCommandGenerator monOneCommand = new OneCommandGenerator("Mods de Lurius", "Voici un No mod", 4, 4);
 
                 Dictionary<string,bool> loopCommand = new Dictionary<string, bool>();
                 loopCommand.Add("say hello", false);
