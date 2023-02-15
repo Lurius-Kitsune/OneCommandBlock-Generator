@@ -97,21 +97,10 @@ namespace OneCommandBlock_Generator
             try
             {
                 int cptLongueur = 1, cptHauteur = 0, cptLargeur = 1;
-                string faces = "east"
+                string faces = "east";
                 bool firstLoop = false;
                 foreach (KeyValuePair<string, bool> command in loopListCommand)
                 {
-                    if (!firstLoop)
-                    {
-                        this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} " +
-                                            $"repeating_command_block[facing=east]{{auto:1,Command:\"{command.Key}\"}}'}},");
-                        firstLoop = true;
-                    }
-                    else
-                    {
-                        this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} " +
-                                            $"chain_command_block[facing=east, conditional={command.Value.ToString().ToLower()}]{{auto:1,Command:\"{command.Key}\"}}'}},");
-                    }
                     if (cptLongueur == this.longueur - 2)
                     {
                         cptLargeur++;
@@ -122,6 +111,37 @@ namespace OneCommandBlock_Generator
                             cptHauteur++;
                             cptLargeur = 1;
                         }
+                    }
+                    if (!firstLoop)
+                    {
+                        this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} " +
+                                            $"repeating_command_block[facing={faces}]{{auto:1,Command:\"{command.Key}\"}}'}},");
+                        firstLoop = true;
+                    }
+                    else
+                    {
+                        switch (faces)
+                        {
+                            default:
+                                this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} " +
+                                            $"chain_command_block[facing={faces}, conditional={command.Value.ToString().ToLower()}]{{auto:1,Command:\"{command.Key}\"}}'}},");
+                                break;
+
+                            case "north":
+                                this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} " +
+                                            $"chain_command_block[facing={faces}, conditional={command.Value.ToString().ToLower()}]{{auto:1,Command:\"{command.Key}\"}}'}},");
+                                if (cptLargeur %2 == 0)
+                                {
+                                    faces = "east";
+                                }
+                                else
+                                {
+                                    faces = "west"
+                                }
+                                break;
+                        }
+                        this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} " +
+                                            $"chain_command_block[facing={faces}, conditional={command.Value.ToString().ToLower()}]{{auto:1,Command:\"{command.Key}\"}}'}},");
                     }
                     cptLongueur++;
                 }
