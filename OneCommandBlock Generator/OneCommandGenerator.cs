@@ -130,18 +130,16 @@ namespace OneCommandBlock_Generator
                             case "north":
                                 this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} " +
                                             $"chain_command_block[facing={faces}, conditional={command.Value.ToString().ToLower()}]{{auto:1,Command:\"{command.Key}\"}}'}},");
-                                if (cptLargeur %2 == 0)
+                                if (cptLargeur % 2 == 0)
                                 {
                                     faces = "east";
                                 }
                                 else
                                 {
-                                    faces = "west"
+                                    faces = "west";
                                 }
                                 break;
                         }
-                        this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} " +
-                                            $"chain_command_block[facing={faces}, conditional={command.Value.ToString().ToLower()}]{{auto:1,Command:\"{command.Key}\"}}'}},");
                     }
                     cptLongueur++;
                 }
