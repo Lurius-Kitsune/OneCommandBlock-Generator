@@ -104,13 +104,13 @@ namespace OneCommandBlock_Generator
                     if (!firstLoop)
                     {
                         this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur} ~{cptHauteur} ~{cptLargeur} " +
-                                            $"repeating_command_block[facing={faces}]{{auto:1,Command:\"{command.Key}\"}}'}},");
+                                            $"repeating_command_block[facing={faces}]{{auto:1,Command:\"{command.Key.ToString().Replace("\"", "\\\\\"")}\"}}'}},");
                         firstLoop = true;
                     }
                     else
                     {
                         this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur} ~{cptHauteur} ~{cptLargeur} " +
-                                            $"chain_command_block[facing={faces}, conditional={command.Value.ToString().ToLower()}]{{auto:1,Command:\"{command.Key}\"}}'}},");
+                                            $"chain_command_block[facing={faces}, conditional={command.Value.ToString().ToLower()}]{{auto:1,Command:\"{ command.Key.ToString().Replace("\"", "\\\\\"") }\"}}'}},");
                         switch (faces)
                         {
                             default:
@@ -126,11 +126,29 @@ namespace OneCommandBlock_Generator
                                     faces = "west";
                                 }
                                 break;
+
+                            case "north":
+                                if (cptLargeur % 2 != 0)
+                                {
+                                    faces = "east";
+                                }
+                                else
+                                {
+                                    faces = "west";
+                                }
+                                break;
+
                             case "up":
-                                if (!invertLargeur) { cptLargeur = this.largeur - 1; }
-                                else { cptLargeur = 2; }
                                 this.hauteur++;
                                 cptHauteur++;
+                                if (cptLongueur == 2)
+                                {
+                                    faces = "east";
+                                }
+                                else
+                                {
+                                    faces = "west";
+                                }
                                 break;
                         }
                     }
@@ -138,14 +156,27 @@ namespace OneCommandBlock_Generator
                     else { cptLongueur--; }
 
                     //For next command block
-                    if ((cptLongueur == this.longueur  && !invertLongeur) ||
+                    if ((cptLongueur == this.longueur && !invertLongeur) ||
                             (cptLongueur == 1 && invertLongeur))
                     {
-                        cptLargeur++;
-                        if ((cptLargeur == this.largeur - 1 && !invertLargeur) ||
-                            (cptLargeur == 2 && invertLargeur))
+                        if (!invertLargeur)
                         {
-                            faces = "up";
+                            cptLargeur++;
+                        }
+                        else { cptLargeur--; }
+                        if ((cptLargeur == this.largeur - 1 && !invertLargeur) ||
+                            (cptLargeur == 0 && invertLargeur))
+                        {
+                            if (!invertLargeur) { cptLargeur = this.largeur - 2;}
+                            else { cptLargeur = 1;}
+                            if (invertLongeur)
+                            {
+                                cptLongueur++;
+                            }
+                            else
+                            {
+                                cptLongueur--;
+                            }
                             invertLongeur = !invertLongeur;
                             invertLargeur = !invertLargeur;
                         }
@@ -166,12 +197,15 @@ namespace OneCommandBlock_Generator
                         }
                     }
                     if ((cptLongueur == this.longueur - 1 && !invertLongeur) ||
-                        (cptLongueur == 2 && invertLongeur)) 
-                    { 
-                        faces = "south"; 
-                        if (cptLargeur == this.largeur - 1)
+                        (cptLongueur == 2 && invertLongeur))
+                    {
+                        if (!invertLargeur) { faces = "south"; }
+                        else { faces = "north"; }
+
+                        if ((cptLargeur == this.largeur - 2 && !invertLargeur) ||
+                            (cptLargeur == 1 && invertLargeur))
                         {
-                            cptLargeur--;
+                            faces = "up";
                         }
                     }
                 }
