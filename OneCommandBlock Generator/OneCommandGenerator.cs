@@ -120,9 +120,7 @@ namespace OneCommandBlock_Generator
                         }
                         if (cptLargeur == this.largeur - 1)
                         {
-                            this.hauteur++;
-                            cptHauteur++;
-                            cptLargeur = 1;
+                            faces = "up";
                         }
                     }
                     if (!firstLoop)
@@ -152,6 +150,13 @@ namespace OneCommandBlock_Generator
                                     faces = "west";
                                 }
                                 break;
+                            case "up":
+                                this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur-1} " +
+                                           $"chain_command_block[facing={faces}, conditional={command.Value.ToString().ToLower()}]{{auto:1,Command:\"{command.Key}\"}}'}},");
+                                this.hauteur++;
+                                cptHauteur++;
+                                cptLargeur = 1;
+                                break;
                         }
                     }
                     if (!invert) { cptLongueur++; }
@@ -163,6 +168,7 @@ namespace OneCommandBlock_Generator
                 Console.WriteLine(ex.Message);
             }
         }
+
 
         /// <summary>
         /// Generate the string added to the List, 
