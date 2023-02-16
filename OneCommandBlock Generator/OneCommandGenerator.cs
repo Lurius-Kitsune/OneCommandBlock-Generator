@@ -101,28 +101,6 @@ namespace OneCommandBlock_Generator
                 bool firstLoop = false, invert = false;
                 foreach (KeyValuePair<string, bool> command in loopListCommand)
                 {
-                    if ((cptLongueur == this.longueur - 2 && !invert) ||
-                        (cptLongueur == 2 && invert)) { faces = "south"; }
-                    else if ((cptLongueur == this.longueur - 1 && !invert) || 
-                        (cptLongueur == 1 && invert))
-                    {
-                        cptLargeur++;
-                        switch(invert){
-                            default:
-                                cptLongueur = this.longueur - 2;
-                                invert = true;
-                            break;
-
-                            case true:
-                                cptLongueur = 1;
-                                invert = false;
-                                break;
-                        }
-                        if (cptLargeur == this.largeur - 1)
-                        {
-                            faces = "up";
-                        }
-                    }
                     if (!firstLoop)
                     {
                         this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} " +
@@ -151,7 +129,7 @@ namespace OneCommandBlock_Generator
                                 }
                                 break;
                             case "up":
-                                this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur-1} " +
+                                this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur - 1} " +
                                            $"chain_command_block[facing={faces}, conditional={command.Value.ToString().ToLower()}]{{auto:1,Command:\"{command.Key}\"}}'}},");
                                 this.hauteur++;
                                 cptHauteur++;
@@ -161,6 +139,8 @@ namespace OneCommandBlock_Generator
                     }
                     if (!invert) { cptLongueur++; }
                     else { cptLongueur--; }
+
+                    
                 }
             }
             catch (Exception ex)
