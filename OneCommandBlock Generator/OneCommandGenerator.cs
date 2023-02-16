@@ -47,6 +47,29 @@ namespace OneCommandBlock_Generator
         public string OneCommandBuild(List<string>? initListCommand = null, Dictionary<string, bool>? loopListCommand = null)
         {
             string oneCommandString;
+            int cptCondition = 0;
+            if (loopListCommand != null)
+            {
+                foreach (KeyValuePair<string, bool> command in loopListCommand)
+                {
+                    if (command.Value)
+                    {
+                        cptCondition++;
+                    }
+                    else
+                    {
+                        if (cptCondition >= this.longueur - 3)
+                        {
+                            this.longueur += cptCondition + 1;
+                        }
+                        cptCondition = 0;
+                    }
+                }
+                if (cptCondition >= this.longueur - 3)
+                {
+                    this.longueur += cptCondition + 2;
+                }
+            }
             if (initListCommand != null)
             {
                 InitBuild(initListCommand);
@@ -59,7 +82,7 @@ namespace OneCommandBlock_Generator
             {
                 throw new Exception("Veuillez mettre une commande init ou Loop");
             }
-            //StructureBuild();
+            StructureBuild();
             this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~ ~1 ~ command_block{{auto:1,Command:\"fill ~ ~ ~ ~ ~-2 ~ air\"}}'}}," +
                 $"{{id:command_block_minecart,Command:'kill @e[type=command_block_minecart,distance=..1]'}}]}}]}}]}}");
             oneCommandString = String.Join(" ", this.oneCommand);
