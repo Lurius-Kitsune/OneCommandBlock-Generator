@@ -96,29 +96,27 @@ namespace OneCommandBlock_Generator
         {
             try
             {
-                int cptLongueur = 1, cptHauteur = 0, cptLargeur = 1;
+                int cptLongueur = 2, cptHauteur = 0, cptLargeur = 1;
                 string faces = "east";
-                bool firstLoop = false, invert = false;
+                bool firstLoop = false, invertLongeur = false, invertLargeur = false;
                 foreach (KeyValuePair<string, bool> command in loopListCommand)
                 {
                     if (!firstLoop)
                     {
-                        this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} " +
+                        this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur} ~{cptHauteur} ~{cptLargeur} " +
                                             $"repeating_command_block[facing={faces}]{{auto:1,Command:\"{command.Key}\"}}'}},");
                         firstLoop = true;
                     }
                     else
                     {
+                        this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur} ~{cptHauteur} ~{cptLargeur} " +
+                                            $"chain_command_block[facing={faces}, conditional={command.Value.ToString().ToLower()}]{{auto:1,Command:\"{command.Key}\"}}'}},");
                         switch (faces)
                         {
                             default:
-                                this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} " +
-                                            $"chain_command_block[facing={faces}, conditional={command.Value.ToString().ToLower()}]{{auto:1,Command:\"{command.Key}\"}}'}},");
                                 break;
 
                             case "south":
-                                this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur} " +
-                                            $"chain_command_block[facing={faces}, conditional={command.Value.ToString().ToLower()}]{{auto:1,Command:\"{command.Key}\"}}'}},");
                                 if (cptLargeur % 2 == 0)
                                 {
                                     faces = "east";
@@ -129,18 +127,53 @@ namespace OneCommandBlock_Generator
                                 }
                                 break;
                             case "up":
-                                this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~{cptLongueur + 1} ~{cptHauteur} ~{cptLargeur - 1} " +
-                                           $"chain_command_block[facing={faces}, conditional={command.Value.ToString().ToLower()}]{{auto:1,Command:\"{command.Key}\"}}'}},");
+                                if (!invertLargeur) { cptLargeur = this.largeur - 1; }
+                                else { cptLargeur = 2; }
                                 this.hauteur++;
                                 cptHauteur++;
-                                cptLargeur = 1;
                                 break;
                         }
                     }
-                    if (!invert) { cptLongueur++; }
+                    if (!invertLongeur) { cptLongueur++; }
                     else { cptLongueur--; }
 
-                    
+                    //For next command block
+                    if ((cptLongueur == this.longueur  && !invertLongeur) ||
+                            (cptLongueur == 1 && invertLongeur))
+                    {
+                        cptLargeur++;
+                        if ((cptLargeur == this.largeur - 1 && !invertLargeur) ||
+                            (cptLargeur == 2 && invertLargeur))
+                        {
+                            faces = "up";
+                            invertLongeur = !invertLongeur;
+                            invertLargeur = !invertLargeur;
+                        }
+                        else
+                        {
+                            switch (invertLongeur)
+                            {
+                                default:
+                                    cptLongueur = this.longueur - 1;
+                                    invertLongeur = true;
+                                    break;
+
+                                case true:
+                                    cptLongueur = 2;
+                                    invertLongeur = false;
+                                    break;
+                            }
+                        }
+                    }
+                    if ((cptLongueur == this.longueur - 1 && !invertLongeur) ||
+                        (cptLongueur == 2 && invertLongeur)) 
+                    { 
+                        faces = "south"; 
+                        if (cptLargeur == this.largeur - 1)
+                        {
+                            cptLargeur--;
+                        }
+                    }
                 }
             }
             catch (Exception ex)
