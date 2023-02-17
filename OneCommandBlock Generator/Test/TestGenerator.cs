@@ -12,7 +12,8 @@ namespace OneCommandBlock_Generator.Test
         static void Main(string[] args)
         {
             //TesteBuildInitOnly();
-            TesteBuildLoopOnly();
+            //TesteBuildLoopOnly();
+            TesteBuildInitLoop();
             Console.ReadKey();
         }
 
@@ -52,7 +53,7 @@ namespace OneCommandBlock_Generator.Test
         /// </summary>
         public static void TesteBuildLoopOnly()
         {
-            //TESTE SI INIT ET MIT
+            //TESTE SI LOOP ET MIT
             try
             {
                 Console.WriteLine("[#3 TesteBuildLoop]");
@@ -68,9 +69,9 @@ namespace OneCommandBlock_Generator.Test
                 Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild(null, loopCommand)}");
                 Console.WriteLine("[# 3 SUCCESS]");
             }
-            catch (Exception ex) { Console.WriteLine("[#1 ERROR]" + ex.Message); }
+            catch (Exception ex) { Console.WriteLine("[#3 ERROR]" + ex.Message); }
 
-            // TEST WITHOUT INIT
+            // TEST WITHOUT Loop
             try
             {
                 Console.WriteLine("[#4 TesteBuildLoop]");
@@ -83,5 +84,40 @@ namespace OneCommandBlock_Generator.Test
             catch (Exception ex) { Console.WriteLine("[#4 SUCCESS]" + ex.Message); }
         }
 
+        public static void TesteBuildInitLoop()
+        {
+            //TESTE SI INIT & LOOP ET MIT
+            try
+            {
+                Console.WriteLine("[#5 TesteBuildInitLoop]");
+                OneCommandGenerator monOneCommand = new OneCommandGenerator("Mods de Lurius", "Voici un No mod", 4, 4);
+
+                Dictionary<string, bool> loopCommand = new Dictionary<string, bool>();
+                List<string> initCommand = new List<string>();
+                initCommand.Add("scoreboard objectives add 63J9tq_I dummy");
+                loopCommand.Add("scoreboard players set @e[type=item, nbt={Item:{id:\"minecraft:grass_block\"},OnGround:1b}] 63J9tq_I 3", false);
+                loopCommand.Add("scoreboard players set @e[type=item, nbt={Item:{id:\"minecraft:stone\"},OnGround:1b}] 63J9tq_I 4", false);
+                loopCommand.Add("execute at @e[scores={63J9tq_I=3}] if entity @e[scores={63J9tq_I=4},distance=..1] run summon item ~ ~0.5 ~ {Item:{id:\"minecraft:diamond_sword\",Damage:10,Count:1}}", false);
+                loopCommand.Add("execute at @e[scores={63J9tq_I=3}] run particle minecraft:firework ~ ~ ~ 0.1 0.1 0.1 0.1 100", true);
+                loopCommand.Add("kill @e[scores={63J9tq_I=3}]", true);
+                loopCommand.Add("kill @e[scores={63J9tq_I=4}]", true);
+                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild(initCommand, loopCommand)}");
+                Console.WriteLine("[# 5 SUCCESS]");
+            }
+            catch (Exception ex) { Console.WriteLine("[#6 ERROR]" + ex.Message); }
+
+            // TEST WITHOUT INIT
+            try
+            {
+                Console.WriteLine("[#6 TesteBuildLoop]");
+                OneCommandGenerator monOneCommand = new OneCommandGenerator("Mods de Lurius", "Voici un No mod", 5, 3);
+
+                Dictionary<string, bool> loopCommand = new Dictionary<string, bool>();
+                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild()}");
+                Console.WriteLine("[#6 ERROR]");
+            }
+            catch (Exception ex) { Console.WriteLine("[#6 SUCCESS]" + ex.Message); }
+        }
     }
+
 }
