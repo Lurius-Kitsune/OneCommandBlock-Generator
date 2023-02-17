@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Outils
+namespace OneCommandBlock_Generator.Test
 {
-    class Test
+    class TestGenerator
     {
         static void Main(string[] args)
         {
@@ -58,7 +58,7 @@ namespace Outils
                 Console.WriteLine("[#3 TesteBuildLoop]");
                 OneCommandGenerator monOneCommand = new OneCommandGenerator("Mods de Lurius", "Voici un No mod", 4, 4);
 
-                Dictionary<string,bool> loopCommand = new Dictionary<string, bool>();
+                Dictionary<string, bool> loopCommand = new Dictionary<string, bool>();
                 loopCommand.Add("scoreboard players set @e[type=item, nbt={Item:{id:\"minecraft:grass_block\"},OnGround:1b}] 63J9tq_I 3", false);
                 loopCommand.Add("scoreboard players set @e[type=item, nbt={Item:{id:\"minecraft:stone\"},OnGround:1b}] 63J9tq_I 4", false);
                 loopCommand.Add("execute at @e[scores={63J9tq_I=3}] if entity @e[scores={63J9tq_I=4},distance=..1] run summon item ~ ~0.5 ~ {Item:{id:\"minecraft:diamond_sword\",Damage:10,Count:1}}", false);
