@@ -31,6 +31,8 @@ namespace OneCommandBlock_Generator
                     Console.WriteLine("[Warning] Please choose an option");
                     Console.WriteLine("1. Yes       2. No");
                 }
+            Console.WriteLine("Add you're loop command for the no-mod :");
+            AddCommand(ref loopList);
         }
 
         private static void Introduction(double v, string vType)
