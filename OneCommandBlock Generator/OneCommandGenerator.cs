@@ -44,7 +44,7 @@ namespace OneCommandBlock_Generator
         /// <param name="loopListCommand">List of action that are loop</param>
         /// <returns>OneCommand String</returns>
         /// <exception cref="Exception"></exception>
-        public string OneCommandBuild(List<string>? initListCommand = null, Dictionary<string, bool>? loopListCommand = null)
+        public string OneCommandBuild(Dictionary<string, bool> loopListCommand, List<string>? initListCommand = null)
         {
             string oneCommandString;
             int cptCondition = 0;
@@ -71,13 +71,17 @@ namespace OneCommandBlock_Generator
                 }
                 LoopBuild(loopListCommand);
             }
+            else
+            {
+                throw new Exception("Veuillez mettre une commande Loop");
+            }
             if (initListCommand != null)
             {
                 InitBuild(initListCommand);
             }
             if (this.oneCommand.Count == 1)
             {
-                throw new Exception("Veuillez mettre une commande init ou Loop");
+                
             }
             StructureBuild();
             this.oneCommand.Add($"{{id:command_block_minecart,Command:'setblock ~ ~1 ~ command_block{{auto:1,Command:\"fill ~ ~ ~ ~ ~-2 ~ air\"}}'}}," +
