@@ -24,6 +24,8 @@ namespace OneCommandBlock_Generator
                 Console.WriteLine("Do you want an init step in you're no-mod?");
                 Console.WriteLine("1. Yes       2. No");
                 while (answer != "1" || answer != "2")
+                {
+                    answer = Console.ReadLine();
                     if (answer == "1")
                     {
                         AddCommand(ref initList);
@@ -33,10 +35,26 @@ namespace OneCommandBlock_Generator
                         Console.WriteLine("[Warning] Please choose an option");
                         Console.WriteLine("1. Yes       2. No");
                     }
+                }
                 Console.WriteLine("Add you're loop command for the no-mod :");
                 AddCommand(ref loopList);
                 OneCommandGenerator oneCommand = new OneCommandGenerator("Lurius", "Test", 5, 5);
-                oneCommand.OneCommandBuild(loopList, initList);
+                try
+                {
+                    string fileName = @"./onecommand.txt";
+                    if (File.Exists(fileName))
+                    {
+                        File.Delete(fileName);
+                    }
+                    File.Create(fileName);
+                    StreamWriter fileWrite = new StreamWriter(fileName);
+                    fileWrite.Write(oneCommand.OneCommandBuild(loopList, initList));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("[Erreur] Can't create the file");
+                    Console.WriteLine(ex.Message);
+                }
             }
             catch (Exception ex)
             {
