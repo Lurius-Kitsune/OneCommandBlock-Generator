@@ -46,9 +46,12 @@ namespace OneCommandBlock_Generator
                     {
                         File.Delete(fileName);
                     }
-                    File.Create(fileName);
-                    StreamWriter fileWrite = new StreamWriter(fileName);
-                    fileWrite.Write(oneCommand.OneCommandBuild(loopList, initList));
+                    using (FileStream file = File.Create(fileName))
+                    {
+                        byte[] info = new UTF8Encoding(true).GetBytes(oneCommand.OneCommandBuild(loopList, initList));
+                        // Add some information to the file.
+                        file.Write(info, 0, info.Length);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -161,7 +164,7 @@ namespace OneCommandBlock_Generator
                         {
                             Console.WriteLine("[Warning] Please choose an option");
                         }
-                    } while (answer.ToLower() != "yes" && answer.ToLower() == "no");
+                    } while (answer.ToLower() != "yes" && answer.ToLower() != "no");
                 }
                 else
                 {
