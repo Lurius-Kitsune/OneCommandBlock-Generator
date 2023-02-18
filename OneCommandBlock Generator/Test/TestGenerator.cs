@@ -13,33 +13,33 @@ namespace OneCommandBlock_Generator.Test
         /// <summary>
         /// Testing if the no-mod is build without the need of a loop command
         /// </summary>
-        public static void TesteBuildInitOnly()
-        {
-            //TESTE SI INIT ET MIT
-            try
-            {
-                Console.WriteLine("[#1 TesteBuildInit]");
-                OneCommandGenerator monOneCommand = new OneCommandGenerator("Mods de Lurius", "Voici un No mod", 3, 3);
+        //public static void TesteBuildInitOnly()
+        //{
+        //    //TESTE SI INIT ET MIT
+        //    try
+        //    {
+        //        Console.WriteLine("[#1 TesteBuildInit]");
+        //        OneCommandGenerator monOneCommand = new OneCommandGenerator("Mods de Lurius", "Voici un No mod", 3, 3);
 
-                List<string> initCommand = new List<string>();
-                initCommand.Add("/setblock ~ ~5 ~ minecraft:diamond_block");
-                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild(initCommand)}");
-                Console.WriteLine("[# 1 SUCCESS]");
-            }
-            catch (Exception ex) { Console.WriteLine("[#1 ERROR]"); }
+        //        List<string> initCommand = new List<string>();
+        //        initCommand.Add("/setblock ~ ~5 ~ minecraft:diamond_block");
+        //        Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild(initCommand)}");
+        //        Console.WriteLine("[# 1 SUCCESS]");
+        //    }
+        //    catch (Exception ex) { Console.WriteLine("[#1 ERROR]"); }
 
-            // TEST WITHOUT INIT
-            try
-            {
-                Console.WriteLine("[#2 TesteBuildInit]");
-                OneCommandGenerator monOneCommand = new OneCommandGenerator("Mods de Lurius", "Voici un No mod", 3, 3);
+        //    // TEST WITHOUT INIT
+        //    try
+        //    {
+        //        Console.WriteLine("[#2 TesteBuildInit]");
+        //        OneCommandGenerator monOneCommand = new OneCommandGenerator("Mods de Lurius", "Voici un No mod", 3, 3);
 
-                List<string> initCommand = new List<string>();
-                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild()}");
-                Console.WriteLine("[#2 ERROR]");
-            }
-            catch (Exception ex) { Console.WriteLine("[#2 SUCCESS]" + ex.Message); }
-        }
+        //        List<string> initCommand = new List<string>();
+        //        Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild()}");
+        //        Console.WriteLine("[#2 ERROR]");
+        //    }
+        //    catch (Exception ex) { Console.WriteLine("[#2 SUCCESS]" + ex.Message); }
+        //}
 
         /// <summary>
         /// Testing if the no-mod is build without the need of a init command
@@ -59,7 +59,7 @@ namespace OneCommandBlock_Generator.Test
                 loopCommand.Add("execute at @e[scores={63J9tq_I=3}] run particle minecraft:firework ~ ~ ~ 0.1 0.1 0.1 0.1 100", true);
                 loopCommand.Add("kill @e[scores={63J9tq_I=3}]", true);
                 loopCommand.Add("kill @e[scores={63J9tq_I=4}]", true);
-                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild(null, loopCommand)}");
+                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild(loopCommand, null)}");
                 Console.WriteLine("[# 3 SUCCESS]");
             }
             catch (Exception ex) { Console.WriteLine("[#3 ERROR]" + ex.Message); }
@@ -71,7 +71,7 @@ namespace OneCommandBlock_Generator.Test
                 OneCommandGenerator monOneCommand = new OneCommandGenerator("Mods de Lurius", "Voici un No mod", 5, 3);
 
                 Dictionary<string, bool> loopCommand = new Dictionary<string, bool>();
-                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild()}");
+                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild(loopCommand, null)}");
                 Console.WriteLine("[#4 ERROR]");
             }
             catch (Exception ex) { Console.WriteLine("[#4 SUCCESS]" + ex.Message); }
@@ -94,7 +94,7 @@ namespace OneCommandBlock_Generator.Test
                 loopCommand.Add("execute at @e[scores={63J9tq_I=3}] run particle minecraft:firework ~ ~ ~ 0.1 0.1 0.1 0.1 100", true);
                 loopCommand.Add("kill @e[scores={63J9tq_I=3}]", true);
                 loopCommand.Add("kill @e[scores={63J9tq_I=4}]", true);
-                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild(initCommand, loopCommand)}");
+                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild(loopCommand, initCommand)}");
                 Console.WriteLine("[# 5 SUCCESS]");
             }
             catch (Exception ex) { Console.WriteLine("[#6 ERROR]" + ex.Message); }
@@ -106,7 +106,7 @@ namespace OneCommandBlock_Generator.Test
                 OneCommandGenerator monOneCommand = new OneCommandGenerator("Mods de Lurius", "Voici un No mod", 5, 3);
 
                 Dictionary<string, bool> loopCommand = new Dictionary<string, bool>();
-                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild()}");
+                Console.WriteLine($"[Info]{monOneCommand.OneCommandBuild(loopCommand, null)}");
                 Console.WriteLine("[#6 ERROR]");
             }
             catch (Exception ex) { Console.WriteLine("[#6 SUCCESS]" + ex.Message); }
