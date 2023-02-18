@@ -23,7 +23,7 @@ namespace OneCommandBlock_Generator
 
                 Console.WriteLine("Do you want an init step in you're no-mod?");
                 Console.WriteLine("1. Yes       2. No");
-                while (answer != "1" || answer != "2")
+                while (answer != "1" && answer != "2")
                 {
                     answer = Console.ReadLine();
                     if (answer == "1")
@@ -104,7 +104,7 @@ namespace OneCommandBlock_Generator
                         {
                             Console.WriteLine("[Warning] Please choose an option");
                         }
-                    } while (answer.ToLower() != "yes" || answer.ToLower() == "no");
+                    } while (answer.ToLower() != "yes" && answer.ToLower() == "no");
                 }
                 else
                 {
@@ -127,6 +127,7 @@ namespace OneCommandBlock_Generator
                     Console.WriteLine("Conditionnal ?: true or false");
                     do
                     {
+                        answer= Console.ReadLine();
                         if (answer is not null)
                         {
                             if (answer.ToLower() == "true")
@@ -142,7 +143,7 @@ namespace OneCommandBlock_Generator
                         {
                             Console.WriteLine("[Warning] Please choose an option");
                         }
-                    } while (answer != "true" || answer != "false");
+                    } while (answer != "true" && answer != "false");
                     listX.Add(command, cond);
                     i++;
                     Console.WriteLine("Continue? ? [Yes] or [No]");
@@ -160,7 +161,7 @@ namespace OneCommandBlock_Generator
                         {
                             Console.WriteLine("[Warning] Please choose an option");
                         }
-                    } while (answer.ToLower() != "yes" || answer.ToLower() == "no");
+                    } while (answer.ToLower() != "yes" && answer.ToLower() == "no");
                 }
                 else
                 {
