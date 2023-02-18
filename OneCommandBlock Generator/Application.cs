@@ -8,16 +8,23 @@ namespace OneCommandBlock_Generator
 {
     class Application
     {
-        private readonly double v = 0.1;
-        private readonly string vType = "Bêta";
+        private double v = 0.1;
+        private string vType = "Bêta";
         static void Main(string[] args)
         {
+            Application app = new Application();
+            Introduction(app.v, app.vType);
 
         }
 
-        static void Introduction()
+        private static void Introduction(double v, string vType)
         {
-            Console.WriteLine($"Welcolme ! Command Generator {v}");
+            Console.WriteLine($"Welcolme ! Command Generator {v} {vType}");
+            Console.WriteLine($"Made by LuriusFox");
+            Console.WriteLine($"Contact :");
+            Console.WriteLine($"Twitter : @Lurius_the_fox");
+            Console.WriteLine($"Twitch : LuriusFox");
+            Console.WriteLine($"[WARNING !] This app is free and you dont need to pay for it !");
         }
     }
 }
