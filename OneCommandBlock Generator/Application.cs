@@ -84,39 +84,36 @@ namespace OneCommandBlock_Generator
             while (!stop)
             {
                 Console.WriteLine($"Command n°{i} : ");
-                do
+                command = Console.ReadLine();
+                if (command is not null)
                 {
-                    command = Console.ReadLine();
-                    if (command is not null)
+                    listX.Add(command);
+                    i++;
+                    Console.WriteLine("Continue? ? [Yes] or [No]");
+                    do
                     {
-                        listX.Add(command);
-                        i++;
-                        Console.WriteLine("Continue? ? [Yes] or [No]");
-                        do
+                        answer = Console.ReadLine();
+                        if (answer is not null)
                         {
-                            answer = Console.ReadLine();
-                            if (answer is not null)
+                            if (answer.ToLower() == "no")
                             {
-                                if (answer.ToLower() == "no")
-                                {
-                                    stop = true;
-                                }
+                                stop = true;
                             }
-                            else
-                            {
-                                Console.WriteLine("[Warning] Please choose an option");
-                            }
-                        } while (answer.ToLower() != "yes" || answer.ToLower() == "no");
-                    }
-                    else
-                    {
-                        Console.WriteLine("[Warning] Please choose an option");
-                    }
-                } while (command is null);
+                        }
+                        else
+                        {
+                            Console.WriteLine("[Warning] Please choose an option");
+                        }
+                    } while (answer.ToLower() != "yes" || answer.ToLower() == "no");
+                }
+                else
+                {
+                    Console.WriteLine("[Warning] Please choose an option");
+                }
             }
         }
 
-        private static void AddCommand(ref Dictionary<string,bool> listX)
+        private static void AddCommand(ref Dictionary<string, bool> listX)
         {
             bool stop = false, cond = false;
             string command = "", answer = "";
@@ -124,53 +121,51 @@ namespace OneCommandBlock_Generator
             while (!stop)
             {
                 Console.WriteLine($"Command n°{i} : ");
-                do
+                command = Console.ReadLine();
+                if (command is not null)
                 {
-                    command = Console.ReadLine();
-                    if (command is not null)
+                    Console.WriteLine("Conditionnal ?: true or false");
+                    do
                     {
-                        Console.WriteLine("Conditionnal ?: true or false");
-                        do
+                        if (answer is not null)
                         {
-                            if (answer is not null)
+                            if (answer.ToLower() == "true")
                             {
-                                if (answer.ToLower() == "true")
-                                {
-                                    cond = true;
-                                }
-                                else if (answer.ToLower() == "false"){
-                                    cond = false;
-                                }
+                                cond = true;
                             }
-                            else
+                            else if (answer.ToLower() == "false")
                             {
-                                Console.WriteLine("[Warning] Please choose an option");
+                                cond = false;
                             }
-                        } while (answer != "true" || answer != "false");
-                        listX.Add(command, cond);
-                        i++;
-                        Console.WriteLine("Continue? ? [Yes] or [No]");
-                        do
+                        }
+                        else
                         {
-                            answer = Console.ReadLine();
-                            if (answer is not null)
-                            {
-                                if (answer.ToLower() == "no")
-                                {
-                                    stop = true;
-                                }
-                            }
-                            else
-                            {
-                                Console.WriteLine("[Warning] Please choose an option");
-                            }
-                        } while (answer.ToLower() != "yes" || answer.ToLower() == "no");
-                    }
-                    else
+                            Console.WriteLine("[Warning] Please choose an option");
+                        }
+                    } while (answer != "true" || answer != "false");
+                    listX.Add(command, cond);
+                    i++;
+                    Console.WriteLine("Continue? ? [Yes] or [No]");
+                    do
                     {
-                        Console.WriteLine("[Warning] Please write a command");
-                    }
-                } while (command is null);
+                        answer = Console.ReadLine();
+                        if (answer is not null)
+                        {
+                            if (answer.ToLower() == "no")
+                            {
+                                stop = true;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("[Warning] Please choose an option");
+                        }
+                    } while (answer.ToLower() != "yes" || answer.ToLower() == "no");
+                }
+                else
+                {
+                    Console.WriteLine("[Warning] Please write a command");
+                }
             }
         }
     }
