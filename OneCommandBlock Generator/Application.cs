@@ -51,7 +51,10 @@ namespace OneCommandBlock_Generator
                         byte[] info = new UTF8Encoding(true).GetBytes(oneCommand.OneCommandBuild(loopList, initList));
                         // Add some information to the file.
                         file.Write(info, 0, info.Length);
+                        fileName = file.Name;
                     }
+                    Console.WriteLine("[Sucess] End of programme, File create in :");
+                    Console.WriteLine(fileName);
                 }
                 catch (Exception ex)
                 {
