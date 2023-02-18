@@ -12,29 +12,40 @@ namespace OneCommandBlock_Generator
         private string vType = "Bêta";
         static void Main(string[] args)
         {
-            string answer = "0";
-            List<string> loopList = new List<string>();
-            List<string> initList = new List<string>();
-            Application app = new Application();
+            try
+            {
+                string answer = "0";
+                Dictionary<string, bool> loopList = new Dictionary<string, bool>();
+                List<string> initList = new List<string>();
+                Application app = new Application();
 
-            Introduction(app.v, app.vType);
+                Introduction(app.v, app.vType);
 
-            Console.WriteLine("Do you want an init step in you're no-mod?");
-            Console.WriteLine("1. Yes       2. No");
-            while (answer != "1" || answer != "2")
-                if (answer == "1")
-                {
-                    AddCommand(ref initList);
-                }
-                else if (answer != "2")
-                {
-                    Console.WriteLine("[Warning] Please choose an option");
-                    Console.WriteLine("1. Yes       2. No");
-                }
-            Console.WriteLine("Add you're loop command for the no-mod :");
-            AddCommand(ref loopList);
-            OneCommandGenerator oneCommand = new OneCommandGenerator("Lurius", "Test", 5, 5);
-            oneCommand.OneCommandBuild(loopList, initList)
+                Console.WriteLine("Do you want an init step in you're no-mod?");
+                Console.WriteLine("1. Yes       2. No");
+                while (answer != "1" || answer != "2")
+                    if (answer == "1")
+                    {
+                        AddCommand(ref initList);
+                    }
+                    else if (answer != "2")
+                    {
+                        Console.WriteLine("[Warning] Please choose an option");
+                        Console.WriteLine("1. Yes       2. No");
+                    }
+                Console.WriteLine("Add you're loop command for the no-mod :");
+                AddCommand(ref loopList);
+                OneCommandGenerator oneCommand = new OneCommandGenerator("Lurius", "Test", 5, 5);
+                oneCommand.OneCommandBuild(loopList, initList);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("====================Erreur=======================");
+                Console.WriteLine();
+                Console.WriteLine(ex.Message);
+                Console.WriteLine();
+                Console.WriteLine("Please make a ticket on github or contact Lurius on discord : Lurius#2569 ");
+            }
         }
 
         private static void Introduction(double v, string vType)
@@ -55,17 +66,17 @@ namespace OneCommandBlock_Generator
             while (!stop)
             {
                 Console.WriteLine($"Command n°{i} : ");
-                command = Console.ReadLine();
                 do
                 {
+                    command = Console.ReadLine();
                     if (command is not null)
                     {
                         listX.Add(command);
                         i++;
                         Console.WriteLine("Continue? ? [Yes] or [No]");
-                        answer = Console.ReadLine();
                         do
                         {
+                            answer = Console.ReadLine();
                             if (answer is not null)
                             {
                                 if (answer.ToLower() == "no")
@@ -77,7 +88,7 @@ namespace OneCommandBlock_Generator
                             {
                                 Console.WriteLine("[Warning] Please choose an option");
                             }
-                        } while (answer is null);
+                        } while (answer.ToLower() != "yes" || answer.ToLower() == "no");
                     }
                     else
                     {
@@ -95,9 +106,9 @@ namespace OneCommandBlock_Generator
             while (!stop)
             {
                 Console.WriteLine($"Command n°{i} : ");
-                command = Console.ReadLine();
                 do
                 {
+                    command = Console.ReadLine();
                     if (command is not null)
                     {
                         Console.WriteLine("Conditionnal ?: true or false");
@@ -117,13 +128,13 @@ namespace OneCommandBlock_Generator
                             {
                                 Console.WriteLine("[Warning] Please choose an option");
                             }
-                        } while (answer is null);
+                        } while (answer != "true" || answer != "false");
                         listX.Add(command, cond);
                         i++;
                         Console.WriteLine("Continue? ? [Yes] or [No]");
-                        answer = Console.ReadLine();
                         do
                         {
+                            answer = Console.ReadLine();
                             if (answer is not null)
                             {
                                 if (answer.ToLower() == "no")
@@ -135,11 +146,11 @@ namespace OneCommandBlock_Generator
                             {
                                 Console.WriteLine("[Warning] Please choose an option");
                             }
-                        } while (answer is null);
+                        } while (answer.ToLower() != "yes" || answer.ToLower() == "no");
                     }
                     else
                     {
-                        Console.WriteLine("[Warning] Please choose an option");
+                        Console.WriteLine("[Warning] Please write a command");
                     }
                 } while (command is null);
             }
