@@ -8,7 +8,7 @@ namespace OneCommandBlock_Generator
 {
     class Application
     {
-        private double v = 0.1;
+        private string v = "0.1";
         private string vType = "Bêta";
         static void Main(string[] args)
         {
@@ -66,7 +66,7 @@ namespace OneCommandBlock_Generator
             }
         }
 
-        private static void Introduction(double v, string vType)
+        private static void Introduction(string v, string vType)
         {
             Console.WriteLine($"Welcolme ! Command Generator {v} {vType}");
             Console.WriteLine($"Made by LuriusFox");
