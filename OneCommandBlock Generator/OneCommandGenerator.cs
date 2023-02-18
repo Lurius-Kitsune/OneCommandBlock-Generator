@@ -69,14 +69,11 @@ namespace OneCommandBlock_Generator
                 {
                     this.longueur += cptCondition + 2;
                 }
+                LoopBuild(loopListCommand);
             }
             if (initListCommand != null)
             {
                 InitBuild(initListCommand);
-            }
-            if (loopListCommand != null)
-            {
-                LoopBuild(loopListCommand);
             }
             if (this.oneCommand.Count == 1)
             {
