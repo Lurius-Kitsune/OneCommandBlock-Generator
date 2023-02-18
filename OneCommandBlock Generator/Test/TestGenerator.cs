@@ -9,13 +9,6 @@ namespace OneCommandBlock_Generator.Test
 {
     class TestGenerator
     {
-        static void Main(string[] args)
-        {
-            //TesteBuildInitOnly();
-            //TesteBuildLoopOnly();
-            TesteBuildInitLoop();
-            Console.ReadKey();
-        }
 
         /// <summary>
         /// Testing if the no-mod is build without the need of a loop command
