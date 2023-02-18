@@ -8,7 +8,7 @@ namespace OneCommandBlock_Generator
 {
     class Application
     {
-        private string v = "0.1";
+        private string v = "1.19-.0.1";
         private string vType = "Bêta";
         static void Main(string[] args)
         {
